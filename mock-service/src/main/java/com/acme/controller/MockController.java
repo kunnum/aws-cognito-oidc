@@ -1,4 +1,4 @@
-package com.acme;
+package com.acme.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -9,7 +9,7 @@ public class MockController {
 
     @RequestMapping("/mock")
     public String greeting() {
-        return "mock";
+        return "mock1";
     }
 
 }
