@@ -15,11 +15,22 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.Optional;
 
+/**
+ *
+ */
 @Component
 public class AuthFilter extends GenericFilterBean {
 
     private static Gson GSON = new Gson();
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
@@ -27,11 +38,17 @@ public class AuthFilter extends GenericFilterBean {
         chain.doFilter(request, response);
     }
 
+    /*
+     *
+     */
     private void processEndpointAuthentication(HttpServletRequest request) {
         Optional.ofNullable(request.getHeader("X-Endpoint-API-UserInfo"))
                 .map(encodedInfo -> new String(Base64.getDecoder().decode(encodedInfo)))
                 .map(decodedInfo ->  GSON.fromJson(decodedInfo, AuthInfo.class))
-                .ifPresent(authInfo -> SecurityContextHolder.getContext().setAuthentication(authInfo));
+                .ifPresent(authInfo -> {
+                    authInfo.setAuthenticated(true);
+                    SecurityContextHolder.getContext().setAuthentication(authInfo);
+                });
     }
 
 }

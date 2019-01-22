@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
+/**
+ *
+ */
 @RestController
 @CommonsLog
 public class Psd2Controller {
@@ -21,24 +24,44 @@ public class Psd2Controller {
     @Autowired public TransactionHistoryService transactionHistoryService;
     @Autowired public PaymentService paymentService;
 
+    /**
+     *
+     * @param authInfo
+     * @return
+     */
     @RequestMapping("/psd2/accountBalance")
     public String getAccountBalance(@AuthenticationPrincipal Authentication authInfo) {
         log.info("Get account balance by: " + authInfo.getPrincipal());
         return holdingBalanceService.getHoldingBalance();
     }
 
+    /**
+     *
+     * @param authInfo
+     * @return
+     */
     @RequestMapping("/psd2/transactionHistory")
     public String getTransactionHistory(@AuthenticationPrincipal Authentication authInfo) {
         log.info("Get transaction history by: " + authInfo.getPrincipal());
         return transactionHistoryService.getTransactionHistory();
     }
 
+    /**
+     *
+     * @param authInfo
+     * @return
+     */
     @RequestMapping("/psd2/quote")
     public String quote(@AuthenticationPrincipal Authentication authInfo) {
         log.info("Quote by: " + authInfo.getPrincipal());
         return paymentService.quote();
     }
 
+    /**
+     *
+     * @param authInfo
+     * @return
+     */
     @RequestMapping("/psd2/pay")
     public String pay(@AuthenticationPrincipal Authentication authInfo) {
         log.info("Pay by: " + authInfo.getPrincipal());

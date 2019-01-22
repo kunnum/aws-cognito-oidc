@@ -1,68 +1,32 @@
 package com.mockbank.dto.security;
 
+import lombok.Builder;
+import lombok.Data;
 import one.util.streamex.StreamEx;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
+/**
+ *
+ */
+@Data
+@Builder
 public class AuthInfo implements Authentication {
 
+    private String name;
+    private boolean authenticated;
     private String principal;
     private String details;
-    private Set<String> roles = new HashSet<>();
-
-    public Set<String> getRoles() {
-        return roles;
-    }
-
-    public void setPrincipal(String principal) {
-        this.principal = principal;
-    }
-
-    public void setRoles(Set<String> roles) {
-        this.roles = roles;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
+    private Set<String> roles;
+    private String credentials;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return StreamEx.of(roles).map(SimpleGrantedAuthority::new).toSet();
     }
 
-    @Override
-    public String getCredentials() {
-        return null;
-    }
-
-    @Override
-    public String getDetails() {
-        return null;
-    }
-
-    @Override
-    public String getPrincipal() {
-        return principal;
-    }
-
-    @Override
-    public boolean isAuthenticated() {
-        return true;
-    }
-
-    @Override
-    public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-
-    }
-
-    @Override
-    public String getName() {
-        return null;
-    }
 }
