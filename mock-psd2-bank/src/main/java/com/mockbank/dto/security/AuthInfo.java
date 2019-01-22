@@ -48,7 +48,7 @@ public class AuthInfo implements Authentication {
 
     @Override
     public String getPrincipal() {
-        return null;
+        return principal;
     }
 
     @Override
