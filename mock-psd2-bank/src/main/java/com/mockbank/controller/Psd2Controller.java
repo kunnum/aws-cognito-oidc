@@ -35,18 +35,3 @@ public class Psd2Controller {
     }
 
 }
-
-/**
- curl http://localhost:8080/psd2/accountBalance \
- -H 'X-Endpoint-API-UserInfo: eyJwcmluY2lwYWwiOiJtZWVyYWpAZ21haWwuY29tIiwiZGV0YWlscyI6Ik1lZXJhaiBLdW5udW1wdXJhdGgiLCJyb2xlcyI6WyJBY2NvdW50QmFsYW5jZSIsIlRyYW5zYWN0aW9uSGlzdG9yeSJdfQ=='
-
- curl http://localhost:8080/psd2/transactionHistory \
- -H 'X-Endpoint-API-UserInfo: eyJwcmluY2lwYWwiOiJtZWVyYWpAZ21haWwuY29tIiwiZGV0YWlscyI6Ik1lZXJhaiBLdW5udW1wdXJhdGgiLCJyb2xlcyI6WyJBY2NvdW50QmFsYW5jZSIsIlRyYW5zYWN0aW9uSGlzdG9yeSJdfQ=='
-
- curl http://localhost:8080/psd2/quote \
- -H 'X-Endpoint-API-UserInfo: eyJwcmluY2lwYWwiOiJtZWVyYWpAZ21haWwuY29tIiwiZGV0YWlscyI6Ik1lZXJhaiBLdW5udW1wdXJhdGgiLCJyb2xlcyI6WyJBY2NvdW50QmFsYW5jZSIsIlRyYW5zYWN0aW9uSGlzdG9yeSJdfQ=='
-
- curl http://localhost:8080/psd2/pay \
- -H 'X-Endpoint-API-UserInfo: eyJwcmluY2lwYWwiOiJtZWVyYWpAZ21haWwuY29tIiwiZGV0YWlscyI6Ik1lZXJhaiBLdW5udW1wdXJhdGgiLCJyb2xlcyI6WyJBY2NvdW50QmFsYW5jZSIsIlRyYW5zYWN0aW9uSGlzdG9yeSJdfQ=='
- *
- */

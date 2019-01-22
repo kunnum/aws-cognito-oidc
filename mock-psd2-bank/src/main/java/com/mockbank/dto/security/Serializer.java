@@ -12,8 +12,8 @@ public class Serializer {
         AuthInfo authInfo = new AuthInfo();
         authInfo.setDetails("Meeraj Kunnumpurath");
         authInfo.setPrincipal("meeraj@gmail.com");
-        authInfo.getRoles().add("AccountBalance");
-        authInfo.getRoles().add("TransactionHistory");
+        authInfo.getRoles().add("ACCOUNT_BALANCE");
+        authInfo.getRoles().add("TRANSACTION_HISTORY");
 
         String json = Base64.getEncoder().encodeToString(new Gson().toJson(authInfo).getBytes("UTF-8"));
         System.err.println(json);
