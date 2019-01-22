@@ -1,5 +1,7 @@
 package com.mockbank.config.filter;
 
+import com.google.gson.Gson;
+import com.mockbank.dto.security.AuthInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,6 +21,8 @@ import java.util.*;
 @Component
 public class AuthFilter extends GenericFilterBean {
 
+    private static Gson GSON = new Gson();
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
@@ -27,18 +31,20 @@ public class AuthFilter extends GenericFilterBean {
     }
 
     private void processEndpointAuthentication(HttpServletRequest request) {
-        /*Optional.ofNullable(request.getHeader("X-Endpoint-API-UserInfo"))
-                .map(encodedInfo -> new String(Base64.getDecoder().decode(encodedInfo)))
-                .map(info -> GSON.fromJson(info, HashMap.class))
-                .map(map -> String.valueOf(map.get("claims")))
-                .map(claims -> GSON.fromJson(claims, AuthDTO.class))
-                .filter(auth -> ALLOWED_DOMAIN_TOKEN.equals(auth.getDomain()))
-                .ifPresent(authDTO -> {
-                    authDTO.setGroups(googleGroupsService.getGoogleGroupsForUser(authDTO.getEmail()));
-                    SecurityContextHolder.getContext().setAuthentication(authDTO);
-                });*/
-        // TODO Process token
-        SecurityContextHolder.getContext().setAuthentication(new DummyAuthentication());
+        System.err.println(request.getHeader("X-Endpoint-API-UserInfo"));
+        Optional.ofNullable(request.getHeader("X-Endpoint-API-UserInfo"))
+                .map(encodedInfo -> {
+                    System.err.println("Encode info: " + encodedInfo);
+                    return new String(Base64.getDecoder().decode(encodedInfo));
+                })
+                .map(decodedInfo -> {
+                    System.err.println("Decoded info: " + decodedInfo);
+                    return GSON.fromJson(decodedInfo, AuthInfo.class);
+                })
+                .ifPresent(authInfo -> {
+                    System.err.println("Auth info: " + authInfo);
+                    SecurityContextHolder.getContext().setAuthentication(authInfo);
+                });
     }
 
     private class DummyAuthentication implements Authentication {
